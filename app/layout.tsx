@@ -26,6 +26,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log('RootLayout rendering...');
   return (
     <ClerkProvider>
       <html lang="en">
@@ -36,6 +37,7 @@ export default function RootLayout({
           <main className="pt-16 min-h-screen">
             {children}
           </main>
+          <script dangerouslySetInnerHTML={{ __html: "console.log('Client-side script executed');" }} />
         </body>
       </html>
     </ClerkProvider>
