@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
         }
 
         // 1. Check if we should use a fixed persona
-        const fixedPersonaId = process.env.TAVUS_PERSONA_ID;
+        const fixedPersonaId = (process.env.TAVUS_PERSONA_ID || '').trim();
         let finalPersonaId = fixedPersonaId;
 
         if (!finalPersonaId) {
