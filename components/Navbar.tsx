@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 
 export default function Navbar() {
     return (
@@ -10,7 +11,7 @@ export default function Navbar() {
                             InterviewTwin
                         </Link>
                     </div>
-                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
                         <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">
                             Home
                         </Link>
@@ -20,6 +21,18 @@ export default function Navbar() {
                         <Link href="/interview/take" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">
                             Take Interview
                         </Link>
+                        <div className="pl-4 border-l border-white/10">
+                            <SignedOut>
+                                <SignInButton mode="modal">
+                                    <button className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer">
+                                        Sign In
+                                    </button>
+                                </SignInButton>
+                            </SignedOut>
+                            <SignedIn>
+                                <UserButton />
+                            </SignedIn>
+                        </div>
                     </div>
                 </div>
             </div>
