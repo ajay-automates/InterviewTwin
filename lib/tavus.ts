@@ -12,7 +12,7 @@ export interface ConversationResponse {
 
 const getHeaders = () => ({
     'Content-Type': 'application/json',
-    'x-api-key': process.env.TAVUS_API_KEY || '',
+    'x-api-key': (process.env.TAVUS_API_KEY || '').trim(),
 });
 
 export async function createPersona(
@@ -30,7 +30,7 @@ export async function createPersona(
             pipeline_mode: 'full',
             system_prompt: systemPrompt,
             context: context || '',
-            default_replica_id: defaultReplicaId || process.env.TAVUS_REPLICA_ID,
+            default_replica_id: defaultReplicaId || (process.env.TAVUS_REPLICA_ID || '').trim(),
             layers: layers || {
                 perception: { perception_model: 'raven-1' },
                 tts: {
@@ -67,7 +67,7 @@ export async function uploadToKnowledgeBase(personaId: string, file: File | Blob
     const response = await fetch(`${TAVUS_API_URL}/personas/${personaId}/knowledge-base`, {
         method: 'POST',
         headers: {
-            'x-api-key': process.env.TAVUS_API_KEY || '',
+            'x-api-key': (process.env.TAVUS_API_KEY || '').trim(),
         },
         body: formData,
     });
@@ -101,7 +101,7 @@ export async function createConversation(
         method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify({
-            replica_id: process.env.TAVUS_REPLICA_ID,
+            replica_id: (process.env.TAVUS_REPLICA_ID || '').trim(),
             persona_id: personaId,
             conversation_name: conversationName,
             conversational_context: conversationalContext || '',
