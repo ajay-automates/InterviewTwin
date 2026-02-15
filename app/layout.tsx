@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "Master your interviews with your AI twin or practice with an AI interviewer.",
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,6 +33,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
+        <Script
+          defer
+          src="https://analytics-production-7300.up.railway.app/script.js"
+          data-website-id="a498c2f5-ada1-43bf-a989-f483d8ddebcf"
+          strategy="afterInteractive"
+        />
         <ClerkProvider
           signInUrl="/sign-in"
           signUpUrl="/sign-up"
