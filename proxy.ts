@@ -5,7 +5,20 @@ const isProtectedRoute = createRouteMatcher([
     '/api/tavus(.*)',
 ]);
 
+const isAuthRoute = createRouteMatcher([
+    '/sign-in(.*)',
+    '/sign-up(.*)',
+]);
+
 export default clerkMiddleware(async (auth, req) => {
+    const { userId } = await auth();
+
+    // If the user is signed in and trying to access an auth route, redirect them
+    if (userId && isAuthRoute(req)) {
+        const redirectUrl = req.nextUrl.searchParams.get('redirect_url') || '/';
+        return Response.redirect(new URL(redirectUrl, req.url));
+    }
+
     if (isProtectedRoute(req)) await auth.protect();
 });
 
